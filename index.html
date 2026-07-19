@@ -6,13 +6,15 @@
 <title>EDU 205 Decoded | The Path to Your Reimagined School</title>
 <style>
   :root{
-    --bg:#f3f2ee; --ink:#1c2333; --muted:#5b6472; --faint:#8b93a1;
-    --card:#ffffff; --line:#e4e3dc;
-    --navy:#16223c; --navy2:#0c1424;
-    --narrow:#6b4fa1; --gate:#b07d1a; --build:#1f7a6b; --scan:#2f5c94; --draft:#2e7d4f;
-    --narrow-l:#b6a0e0; --gate-l:#ecc163; --build-l:#4ec7ad; --scan-l:#74acea; --draft-l:#63cc8b;
-    --gold:#c79336;
-    --red:#c0392b;
+    /* American University palette: AU Blue #143d8d, AU Red #c41230 */
+    --bg:#f4f4f2; --ink:#1c2333; --muted:#5b6472; --faint:#8b93a1;
+    --card:#ffffff; --line:#e3e3e0;
+    --navy:#122c5f; --navy2:#0a1c40;
+    --aured:#c41230; --aured-d:#8f0c23;
+    --narrow:#6b4fa1; --gate:#b07d1a; --build:#1f7a6b; --scan:#143d8d; --draft:#2e7d4f;
+    --narrow-l:#b6a0e0; --gate-l:#ecc163; --build-l:#4ec7ad; --scan-l:#8fb0f0; --draft-l:#63cc8b;
+    --gold:#c41230;
+    --red:#c41230;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -21,10 +23,21 @@
   h1,h2,h3{margin:0;}
 
   /* ---------- HERO ---------- */
-  .hero{padding:46px 0 30px;}
-  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--scan);font-weight:700;}
-  .hero h1{font-size:40px;font-weight:800;letter-spacing:-.02em;margin:10px 0 6px;line-height:1.1;}
-  .hero h1 .hl{color:var(--scan);}
+  .hero{padding:26px 0 30px;}
+  .hero-banner{position:relative;border-radius:16px;overflow:hidden;height:230px;
+    border-bottom:5px solid var(--aured);box-shadow:0 14px 32px -18px rgba(10,28,64,.55);}
+  .hero-banner img{width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block;}
+  .hero-banner .hb-shade{position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(10,28,64,.55) 0%, rgba(10,28,64,.08) 45%, rgba(10,28,64,0) 70%);}
+  .hero-banner .hb-label{position:absolute;left:18px;bottom:12px;color:#fff;
+    font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    text-shadow:0 1px 6px rgba(0,0,0,.5);}
+  .hero-banner .hb-cred{position:absolute;right:12px;bottom:9px;color:rgba(255,255,255,.75);
+    font-size:9.5px;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+  .hero-banner .hb-cred a{color:rgba(255,255,255,.85);text-decoration:none;}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--scan);font-weight:700;margin-top:22px;}
+  .hero h1{font-size:38px;font-weight:800;letter-spacing:-.02em;margin:10px 0 6px;line-height:1.1;}
+  .hero h1 .hl{color:var(--aured);}
   .hero .lede{font-size:17px;color:var(--muted);max-width:730px;}
   .hero .lede b{color:var(--ink);}
   .bigarrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
@@ -36,8 +49,8 @@
   .bigarrow .stage.peak{background:var(--navy);border-color:var(--navy);}
   .bigarrow .stage.peak .n{color:var(--scan-l);}
   .bigarrow .stage.peak .t,.bigarrow .stage.peak .d{color:#fff;}
-  .bigarrow .stage.fin{background:#2a2418;border-color:#2a2418;}
-  .bigarrow .stage.fin .n{color:var(--gate-l);}
+  .bigarrow .stage.fin{background:var(--aured-d);border-color:var(--aured-d);}
+  .bigarrow .stage.fin .n{color:#f4bcc6;}
   .bigarrow .stage.fin .t,.bigarrow .stage.fin .d{color:#fff;}
   .bigarrow .chev{align-self:center;color:var(--faint);font-size:20px;font-weight:800;}
 
@@ -84,21 +97,21 @@
     justify-content:center;text-align:center;color:#fff;}
   .n-hub .ht{font-weight:800;line-height:1.12;}
   .n-hub .hs{font-weight:600;opacity:.85;}
-  .hub-scan{width:178px;height:178px;background:radial-gradient(circle at 38% 32%,#4d7fbe,#244c80);
-    box-shadow:0 0 0 8px rgba(116,172,234,.16),0 0 38px 4px rgba(116,172,234,.45);}
+  .hub-scan{width:178px;height:178px;background:radial-gradient(circle at 38% 32%,#3d69c4,#143d8d);
+    box-shadow:0 0 0 8px rgba(143,176,240,.16),0 0 38px 4px rgba(143,176,240,.45);}
   .hub-scan .ht{font-size:17px;} .hub-scan .hs{font-size:10.5px;letter-spacing:.06em;}
   .hub-scan .hk{font-size:9.5px;font-weight:800;letter-spacing:.13em;color:var(--scan-l);}
-  .hub-chap{width:150px;height:150px;background:radial-gradient(circle at 38% 32%,#caa24f,#9a6f23);
-    box-shadow:0 0 0 7px rgba(199,147,54,.16),0 0 32px 3px rgba(199,147,54,.4);}
+  .hub-chap{width:150px;height:150px;background:radial-gradient(circle at 38% 32%,#e04b63,#9c1029);
+    box-shadow:0 0 0 7px rgba(224,120,140,.16),0 0 32px 3px rgba(224,120,140,.4);}
   .hub-chap .ht{font-size:15.5px;} .hub-chap .hs{font-size:10px;}
-  .hub-chap .hk{font-size:9px;font-weight:800;letter-spacing:.12em;color:#f0d49a;}
+  .hub-chap .hk{font-size:9px;font-weight:800;letter-spacing:.12em;color:#f6c2ca;}
   .node.sel .n-hub{outline:4px solid #fff;outline-offset:3px;}
 
   .n-sec{width:172px;min-height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
     border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;}
   .n-sec .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex:0 0 9px;}
   .n-sec .lab{font-size:11.6px;font-weight:700;color:#e8ecf3;line-height:1.2;}
-  .node.sel .n-sec{background:rgba(199,147,54,.24);border-color:var(--gold);}
+  .node.sel .n-sec{background:rgba(196,18,48,.28);border-color:#e58a99;}
 
   .col-cap{position:absolute;font-size:10px;font-weight:800;letter-spacing:.1em;
     text-transform:uppercase;color:#7f90ab;}
@@ -127,9 +140,9 @@
     padding:8px 11px;color:#6e4f18;font-size:13px;}
   .dt-feeds{background:#eaf1fa;border-radius:9px;padding:10px 12px;font-size:13.2px;color:#234063;}
   .land{display:flex;gap:6px;flex-wrap:wrap;}
-  .land .lc{font-size:11px;font-weight:700;background:#f3eede;color:#7a5a1a;
-    border:1px solid #e7d9b3;border-radius:6px;padding:3px 8px;cursor:pointer;}
-  .land .lc:hover{background:#ebe2c5;}
+  .land .lc{font-size:11px;font-weight:700;background:#f9e7ea;color:#8f1b30;
+    border:1px solid #eec5cd;border-radius:6px;padding:3px 8px;cursor:pointer;}
+  .land .lc:hover{background:#f3d3d9;}
   .rdg{border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:7px;}
   .rdg:last-child{margin-bottom:0;}
   .rdg .rc{font-size:12.3px;font-weight:700;color:var(--ink);}
@@ -215,14 +228,20 @@
 
   <!-- ================= HERO ================= -->
   <div class="hero">
+    <div class="hero-banner">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Eric_Freidheim_Quadrangle.jpg/1920px-Eric_Freidheim_Quadrangle.jpg"
+        alt="The Eric Freidheim Quadrangle at American University, with Kay Spiritual Life Center in the distance">
+      <div class="hb-shade"></div>
+      <div class="hb-label">American University &middot; Washington, DC</div>
+      <div class="hb-cred">Photo: Herrperry123, CC BY-SA 4.0, Wikimedia Commons</div>
+    </div>
     <div class="kicker">EDU 205 &middot; Schools and Society &middot; Fall 2026 &middot; Dr. Thomas</div>
-    <h1>The whole course builds <span class="hl">one school</span>.</h1>
-    <p class="lede">Fifteen weeks, five projects, a podcast, a magazine. It looks like a pile.
-      It is not. Every essential question in this course is a design decision in disguise, and
-      every project you turn in becomes a piece of the final exam: the <b>public school your group
-      reimagines</b> for a real U.S. community and presents as a <b>conference poster</b> in
-      December. This is not a syllabus. It is the course taken apart so you can see how it
-      actually works. Click anything.</p>
+    <h1>How the course <span class="hl">fits together</span></h1>
+    <p class="lede">Fifteen weeks, five projects, a podcast, and a magazine, all pointing toward
+      one final project: the <b>public school your group reimagines</b> for a U.S. community and
+      presents as a <b>conference poster</b> in December. Each assignment along the way
+      contributes a piece. This page is a companion to the syllabus that shows how those pieces
+      connect. Click anything to explore.</p>
     <div class="bigarrow">
       <div class="stage"><div class="n">SEPTEMBER</div><div class="t">What is school for?</div>
         <div class="d">Purpose. Editorial due Sep 23.</div></div>
@@ -269,11 +288,12 @@
 
   <!-- ================= 2. DESIGN FUNNEL ================= -->
   <div class="sec">
-    <div class="sec-head"><span class="num">2</span><h2>Watch a wish become a school</h2></div>
-    <p class="sec-sub">The hardest move in EDU 205 is turning "we want a good school" into a
-      design you can defend out loud. Here it is in slow motion. Follow one example, a group
-      reimagining a public middle school in a river city that lost its mill, as each unit's
-      essential question forces a real decision. Press play, or click any band.</p>
+    <div class="sec-head"><span class="num">2</span><h2>From idea to school design</h2></div>
+    <p class="sec-sub">A central task in EDU 205 is turning "we want a good school" into a
+      design you can explain and defend. Here is that process in slow motion. Follow one
+      example, a group reimagining a public middle school in a river city that lost its mill,
+      as each unit's essential question calls for a real decision. Press play, or click any
+      band.</p>
     <div class="funnel-wrap">
       <div class="funnel-card">
         <div class="fn-ctrls">
@@ -313,7 +333,11 @@
       earned by being present and doing the weekly work. The projects are the other 2,700.</div>
     <p class="disclaimer">A study aid for EDU 205 students. The official syllabus and Dr. Thomas's
       instructions govern in any case of conflict. Confirm all dates and point values against the
-      syllabus on Canvas.</p>
+      syllabus on Canvas. Header photo: Eric Freidheim Quadrangle, American University, by
+      <a href="https://commons.wikimedia.org/wiki/File:Eric_Freidheim_Quadrangle.jpg" style="color:var(--faint);">Herrperry123</a>,
+      licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color:var(--faint);">CC BY-SA 4.0</a>,
+      via Wikimedia Commons. This page is an unofficial student resource and is not produced by
+      American University.</p>
   </footer>
 
 </div>
@@ -585,14 +609,14 @@ function buildRibbons(){
   /* design -> poster */
   s+=`<path class="ribbon" id="rib-scanchap" data-from="scan" data-to="chapter"
      d="${path(SCAN_C.x+SCAN_C.d/2-12,SCAN_C.y,CHAP_C.x-CHAP_C.d/2+12,CHAP_C.y)}"
-     stroke="#74acea" stroke-width="9"></path>`;
+     stroke="#8fb0f0" stroke-width="9"></path>`;
   /* poster -> sections */
   SECTIONS.forEach((sec,j)=>{
     const b=secXY(j);
     const fx=CHAP_C.x+CHAP_C.d/2-12;
     const fy=CHAP_C.y+(j-(SECTIONS.length-1)/2)*12;
     s+=`<path class="ribbon" id="rib-sec-${sec.id}" data-from="chapter" data-to="${sec.id}"
-      d="${path(fx,fy,SEC_X,b.cy)}" stroke="#d8b25e" stroke-width="3"></path>`;
+      d="${path(fx,fy,SEC_X,b.cy)}" stroke="#e58a99" stroke-width="3"></path>`;
   });
   svg.innerHTML=s;
 }
@@ -632,7 +656,7 @@ function buildNodes(){
   sc.style.left=(SCAN_C.x-SCAN_C.d/2)+"px"; sc.style.top=(SCAN_C.y-SCAN_C.d/2)+"px";
   sc.innerHTML=`<div class="n-hub hub-scan">
     <div class="hk">ALL SEMESTER</div><div class="ht">Your Reimagined<br>School</div>
-    <div class="hs">everything flows here</div></div>`;
+    <div class="hs">built from your assignments</div></div>`;
   wireNode(sc,"scan"); canvas.appendChild(sc);
 
   /* poster hub */
@@ -748,14 +772,14 @@ function renderDetail(id){
             <div class="rd">${r.rd}</div></div>`).join("")}</div>`:""}
       </div>`;
   } else if(id==="scan"){
-    detail.innerHTML=hubHTML("The group project &middot; built all semester","Your Reimagined School","#244c80",[
+    detail.innerHTML=hubHTML("The group project &middot; built all semester","Your Reimagined School","#143d8d",[
       ["&#9678;","What it really is",SCAN.decode,"dt-p"],
-      ["&#10024;","Why it is the whole point",SCAN.why,"dt-p"],
+      ["&#10024;","Why it matters",SCAN.why,"dt-p"],
       ["&#9654;","What it produces",SCAN.produces,"dt-p"],
       ["&#9829;","The thing to hold onto",SCAN.truth,"dt-feeds"]
     ]);
   } else if(id==="chapter"){
-    detail.innerHTML=hubHTML("Final exam &middot; Dec 14 &middot; 700 pts","Conference Poster","#9a6f23",[
+    detail.innerHTML=hubHTML("Final exam &middot; Dec 14 &middot; 700 pts","Conference Poster","#9c1029",[
       ["&#9678;","What it really is",CHAPTER.decode,"dt-p"],
       ["&#10024;","Why it matters",CHAPTER.why,"dt-p"],
       ["&#9654;","What it produces",CHAPTER.produces,"dt-p"],
@@ -764,7 +788,7 @@ function renderDetail(id){
   } else if(sec){
     const builders=INPUTS.filter(x=>x.sections.includes(id));
     detail.innerHTML=`
-      <div class="dt-top" style="background:#9a6f23">
+      <div class="dt-top" style="background:#9c1029">
         <div class="dt-kicker">A section of your final poster</div>
         <div class="dt-title">${sec.label}</div>
       </div>
