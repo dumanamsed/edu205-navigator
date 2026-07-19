@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU 205 Decoded | The Path to Your Reimagined School</title>
+<style>
+  :root{
+    --bg:#f3f2ee; --ink:#1c2333; --muted:#5b6472; --faint:#8b93a1;
+    --card:#ffffff; --line:#e4e3dc;
+    --navy:#16223c; --navy2:#0c1424;
+    --narrow:#6b4fa1; --gate:#b07d1a; --build:#1f7a6b; --scan:#2f5c94; --draft:#2e7d4f;
+    --narrow-l:#b6a0e0; --gate-l:#ecc163; --build-l:#4ec7ad; --scan-l:#74acea; --draft-l:#63cc8b;
+    --gold:#c79336;
+    --red:#c0392b;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI",Calibri,"Helvetica Neue",Arial,sans-serif;line-height:1.6;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;}
+  h1,h2,h3{margin:0;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:46px 0 30px;}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--scan);font-weight:700;}
+  .hero h1{font-size:40px;font-weight:800;letter-spacing:-.02em;margin:10px 0 6px;line-height:1.1;}
+  .hero h1 .hl{color:var(--scan);}
+  .hero .lede{font-size:17px;color:var(--muted);max-width:730px;}
+  .hero .lede b{color:var(--ink);}
+  .bigarrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .bigarrow .stage{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:13px 15px;position:relative;}
+  .bigarrow .stage .n{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--faint);}
+  .bigarrow .stage .t{font-size:14.5px;font-weight:700;margin-top:3px;}
+  .bigarrow .stage .d{font-size:12px;color:var(--muted);margin-top:2px;}
+  .bigarrow .stage.peak{background:var(--navy);border-color:var(--navy);}
+  .bigarrow .stage.peak .n{color:var(--scan-l);}
+  .bigarrow .stage.peak .t,.bigarrow .stage.peak .d{color:#fff;}
+  .bigarrow .stage.fin{background:#2a2418;border-color:#2a2418;}
+  .bigarrow .stage.fin .n{color:var(--gate-l);}
+  .bigarrow .stage.fin .t,.bigarrow .stage.fin .d{color:#fff;}
+  .bigarrow .chev{align-self:center;color:var(--faint);font-size:20px;font-weight:800;}
+
+  /* ---------- SECTION SHELL ---------- */
+  .sec{margin-top:46px;}
+  .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;}
+  .sec-head .num{font-size:13px;font-weight:800;color:#fff;background:var(--scan);
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    flex:0 0 26px;align-self:center;}
+  .sec-head h2{font-size:23px;font-weight:800;letter-spacing:-.01em;}
+  .sec-sub{font-size:14.5px;color:var(--muted);max-width:760px;margin:4px 0 18px;}
+
+  /* ---------- FLOW MAP DASHBOARD ---------- */
+  .dash{display:block;}
+  .map-card{background:var(--navy);border-radius:16px;padding:14px 16px 10px;
+    box-shadow:0 18px 40px -22px rgba(12,20,36,.7);}
+  .map-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:4px 4px 12px;}
+  .map-bar .hint{font-size:12px;color:#9fb0c8;flex:1;min-width:140px;}
+  .lensbtn{font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;
+    border:1px solid #34466a;background:#1f3052;color:#cdd9ec;border-radius:20px;padding:5px 11px;}
+  .lensbtn:hover{background:#284067;}
+  .lensbtn.on{background:var(--scan-l);color:var(--navy2);border-color:var(--scan-l);}
+  .map-scroll{position:relative;overflow:hidden;width:100%;}
+  .map-canvas{position:absolute;left:50%;top:0;width:1000px;height:646px;transform-origin:top center;}
+  #ribbons{position:absolute;top:0;left:0;width:1000px;height:646px;pointer-events:none;}
+  .ribbon{fill:none;stroke-linecap:round;transition:opacity .22s,stroke-width .22s;
+    stroke-dasharray:5 9;animation:flow 3.4s linear infinite;}
+  @keyframes flow{to{stroke-dashoffset:-28;}}
+  .ribbon.lit{animation-duration:1.1s;}
+
+  .node{position:absolute;cursor:pointer;transition:transform .15s;}
+  .node:hover{transform:scale(1.035);}
+  .n-input{width:204px;height:50px;background:#fff;border-radius:9px;display:flex;
+    align-items:center;padding:0 11px 0 13px;gap:9px;border-left:5px solid var(--line);
+    box-shadow:0 3px 9px -4px rgba(0,0,0,.5);}
+  .n-input .lab{font-size:12.2px;font-weight:700;line-height:1.18;color:var(--ink);}
+  .n-input .meta{font-size:9.5px;color:var(--faint);font-weight:600;}
+  .n-input .pts{margin-left:auto;font-size:9.5px;font-weight:800;color:#fff;border-radius:5px;
+    padding:2px 5px;white-space:nowrap;}
+  .node.dim{opacity:.26;filter:saturate(.5);}
+  .node.sel .n-input{outline:3px solid var(--scan-l);outline-offset:1px;}
+
+  .n-hub{border-radius:50%;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;color:#fff;}
+  .n-hub .ht{font-weight:800;line-height:1.12;}
+  .n-hub .hs{font-weight:600;opacity:.85;}
+  .hub-scan{width:178px;height:178px;background:radial-gradient(circle at 38% 32%,#4d7fbe,#244c80);
+    box-shadow:0 0 0 8px rgba(116,172,234,.16),0 0 38px 4px rgba(116,172,234,.45);}
+  .hub-scan .ht{font-size:17px;} .hub-scan .hs{font-size:10.5px;letter-spacing:.06em;}
+  .hub-scan .hk{font-size:9.5px;font-weight:800;letter-spacing:.13em;color:var(--scan-l);}
+  .hub-chap{width:150px;height:150px;background:radial-gradient(circle at 38% 32%,#caa24f,#9a6f23);
+    box-shadow:0 0 0 7px rgba(199,147,54,.16),0 0 32px 3px rgba(199,147,54,.4);}
+  .hub-chap .ht{font-size:15.5px;} .hub-chap .hs{font-size:10px;}
+  .hub-chap .hk{font-size:9px;font-weight:800;letter-spacing:.12em;color:#f0d49a;}
+  .node.sel .n-hub{outline:4px solid #fff;outline-offset:3px;}
+
+  .n-sec{width:172px;min-height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+    border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;}
+  .n-sec .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex:0 0 9px;}
+  .n-sec .lab{font-size:11.6px;font-weight:700;color:#e8ecf3;line-height:1.2;}
+  .node.sel .n-sec{background:rgba(199,147,54,.24);border-color:var(--gold);}
+
+  .col-cap{position:absolute;font-size:10px;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;color:#7f90ab;}
+
+  /* detail panel */
+  .detail{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:0;overflow:hidden;margin-top:16px;}
+  .dt-top{padding:16px 20px 14px;color:#fff;}
+  .dt-kicker{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.92;}
+  .dt-title{font-size:19px;font-weight:800;margin-top:3px;line-height:1.18;}
+  .dt-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;}
+  .dt-tag{font-size:10.5px;font-weight:700;background:rgba(255,255,255,.2);
+    border-radius:20px;padding:3px 9px;}
+  .dt-body{padding:16px 20px 20px;}
+  .dt-block{margin-bottom:15px;}
+  .dt-block:last-child{margin-bottom:0;}
+  @media(min-width:900px){
+    .dt-body{column-count:2;column-gap:30px;}
+    .dt-block{break-inside:avoid;-webkit-column-break-inside:avoid;}
+  }
+  .dt-h{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+  .dt-h .ic{font-size:13px;}
+  .dt-p{font-size:13.6px;color:#33404f;}
+  .dt-p.trap{background:#fcf1e4;border-left:3px solid var(--gate);border-radius:0 7px 7px 0;
+    padding:8px 11px;color:#6e4f18;font-size:13px;}
+  .dt-feeds{background:#eaf1fa;border-radius:9px;padding:10px 12px;font-size:13.2px;color:#234063;}
+  .land{display:flex;gap:6px;flex-wrap:wrap;}
+  .land .lc{font-size:11px;font-weight:700;background:#f3eede;color:#7a5a1a;
+    border:1px solid #e7d9b3;border-radius:6px;padding:3px 8px;cursor:pointer;}
+  .land .lc:hover{background:#ebe2c5;}
+  .rdg{border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:7px;}
+  .rdg:last-child{margin-bottom:0;}
+  .rdg .rc{font-size:12.3px;font-weight:700;color:var(--ink);}
+  .rdg .rd{font-size:12.2px;color:var(--muted);margin-top:2px;}
+  .dt-empty{padding:36px 22px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .dt-empty .big{font-size:34px;margin-bottom:8px;}
+
+  /* ---------- DESIGN FUNNEL ---------- */
+  .funnel-wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:18px;align-items:start;}
+  .funnel-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;}
+  .fn-ctrls{display:flex;gap:8px;margin-bottom:14px;align-items:center;}
+  .fn-btn{font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:8px;
+    padding:7px 13px;border:1px solid var(--line);background:#fff;color:var(--ink);}
+  .fn-btn:hover{background:var(--bg);}
+  .fn-btn.play{background:var(--scan);color:#fff;border-color:var(--scan);}
+  .fn-btn.play:hover{background:#244c80;}
+  .fn-count{margin-left:auto;font-size:12px;color:var(--faint);font-weight:700;}
+  .funnel{display:flex;flex-direction:column;gap:5px;align-items:center;}
+  .fband{border-radius:8px;padding:9px 10px;cursor:pointer;text-align:center;
+    transition:all .3s cubic-bezier(.4,0,.2,1);border:2px solid transparent;color:#fff;
+    display:flex;align-items:center;justify-content:center;gap:7px;}
+  .fband .fnum{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.28);
+    font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 20px;}
+  .fband .ftxt{font-size:12px;font-weight:700;line-height:1.15;}
+  .fband.active{transform:scale(1.04);box-shadow:0 6px 16px -6px rgba(0,0,0,.45);
+    border-color:rgba(255,255,255,.85);}
+  .fband:not(.active){opacity:.62;}
+  .fband:not(.active):hover{opacity:.85;}
+
+  .fn-detail{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;}
+  .fn-stage-k{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);}
+  .fn-stage-t{font-size:18px;font-weight:800;margin:2px 0 12px;}
+  .probcard{border-radius:12px;padding:14px 15px;transition:all .35s;border:2px solid;}
+  .probcard .pstatus{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+    display:flex;align-items:center;gap:6px;margin-bottom:7px;}
+  .probcard .ptext{font-size:14px;font-weight:600;line-height:1.5;}
+  .scopemeter{margin:13px 0 4px;}
+  .scopemeter .sm-lab{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--faint);display:flex;justify-content:space-between;margin-bottom:4px;}
+  .sm-track{height:9px;background:#eceae2;border-radius:6px;overflow:hidden;}
+  .sm-fill{height:100%;border-radius:6px;transition:width .4s,background .4s;}
+  .fn-changed{font-size:13.3px;color:#33404f;margin:13px 0;}
+  .fn-changed b{color:var(--ink);}
+  .fn-ask{background:var(--bg);border-radius:9px;padding:10px 12px;margin-bottom:12px;}
+  .fn-ask .fa-h{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--narrow);margin-bottom:4px;}
+  .fn-ask ul{margin:0;padding-left:17px;}
+  .fn-ask li{font-size:12.7px;color:#3d2e5c;margin-bottom:3px;}
+  .fn-rdg-h{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:6px;}
+
+  /* ---------- JARGON ---------- */
+  .jar-grid{display:flex;gap:8px;flex-wrap:wrap;}
+  .jchip{font-family:inherit;font-size:12.7px;font-weight:700;cursor:pointer;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);
+    border-radius:22px;padding:8px 14px;transition:all .15s;}
+  .jchip:hover{border-color:var(--scan);color:var(--scan);}
+  .jchip.on{background:var(--scan);color:#fff;border-color:var(--scan);}
+  .jpanel{margin-top:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:0;overflow:hidden;min-height:96px;}
+  .jpanel .jp-term{background:var(--navy);color:#fff;padding:11px 18px;font-size:15px;font-weight:800;}
+  .jpanel .jp-body{padding:14px 18px;}
+  .jpanel .jp-plain{font-size:14.5px;color:var(--ink);font-weight:600;}
+  .jpanel .jp-why{font-size:13px;color:var(--muted);margin-top:7px;}
+  .jpanel .jp-why b{color:var(--build);}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);}
+  .ftgrid{display:flex;gap:30px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);}
+  .ftgrid b{color:var(--ink);}
+  .ft-note{margin-top:14px;background:#fcf1e4;border:1px solid #ecdcb6;border-left:4px solid var(--gate);
+    border-radius:9px;padding:12px 15px;font-size:12.7px;color:#6e4f18;}
+  .disclaimer{margin-top:12px;font-size:11.3px;color:var(--faint);font-style:italic;}
+
+  @media(max-width:880px){
+    .funnel-wrap{grid-template-columns:1fr;}
+    .hero h1{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="kicker">EDU 205 &middot; Schools and Society &middot; Fall 2026 &middot; Dr. Thomas</div>
+    <h1>The whole course builds <span class="hl">one school</span>.</h1>
+    <p class="lede">Fifteen weeks, five projects, a podcast, a magazine. It looks like a pile.
+      It is not. Every essential question in this course is a design decision in disguise, and
+      every project you turn in becomes a piece of the final exam: the <b>public school your group
+      reimagines</b> for a real U.S. community and presents as a <b>conference poster</b> in
+      December. This is not a syllabus. It is the course taken apart so you can see how it
+      actually works. Click anything.</p>
+    <div class="bigarrow">
+      <div class="stage"><div class="n">SEPTEMBER</div><div class="t">What is school for?</div>
+        <div class="d">Purpose. Editorial due Sep 23.</div></div>
+      <div class="chev">&rsaquo;</div>
+      <div class="stage"><div class="n">OCTOBER</div><div class="t">Who gets what education?</div>
+        <div class="d">Difference. Photo Essay due Oct 19.</div></div>
+      <div class="chev">&rsaquo;</div>
+      <div class="stage"><div class="n">NOVEMBER</div><div class="t">Who decides, who pays?</div>
+        <div class="d">Power. Policy Memo due Nov 16.</div></div>
+      <div class="chev">&rsaquo;</div>
+      <div class="stage peak"><div class="n">DEC 7</div><div class="t">&#9733; See it in real life</div>
+        <div class="d">Observation Blog. Theory meets a classroom.</div></div>
+      <div class="chev">&rsaquo;</div>
+      <div class="stage fin"><div class="n">DEC 14</div><div class="t">&#9733; Reimagined School Poster</div>
+        <div class="d">Final exam + magazine release. 700 pts.</div></div>
+    </div>
+  </div>
+
+  <!-- ================= 1. CONNECTION MAP ================= -->
+  <div class="sec">
+    <div class="sec-head"><span class="num">1</span><h2>The connection map</h2></div>
+    <p class="sec-sub">Every assignment on the left flows into the school your group is designing.
+      The design flows into the final poster. The poster fans out into the seven things it must
+      contain. Hover a node to trace its path. Click it to unpack what it actually is and what
+      you actually do.</p>
+    <div class="dash">
+      <div class="map-card">
+        <div class="map-bar">
+          <span class="hint">Hover to trace &middot; click to open</span>
+          <button class="lensbtn on" data-lens="all">Show all</button>
+          <button class="lensbtn" data-lens="scan">Into the Design</button>
+          <button class="lensbtn" data-lens="chapter">Into the Poster</button>
+        </div>
+        <div class="map-scroll" id="mapScroll">
+          <div class="map-canvas" id="mapCanvas">
+            <svg id="ribbons" xmlns="http://www.w3.org/2000/svg"></svg>
+            <!-- nodes injected by JS -->
+          </div>
+        </div>
+      </div>
+      <div class="detail" id="detail"><!-- injected --></div>
+    </div>
+  </div>
+
+  <!-- ================= 2. DESIGN FUNNEL ================= -->
+  <div class="sec">
+    <div class="sec-head"><span class="num">2</span><h2>Watch a wish become a school</h2></div>
+    <p class="sec-sub">The hardest move in EDU 205 is turning "we want a good school" into a
+      design you can defend out loud. Here it is in slow motion. Follow one example, a group
+      reimagining a public middle school in a river city that lost its mill, as each unit's
+      essential question forces a real decision. Press play, or click any band.</p>
+    <div class="funnel-wrap">
+      <div class="funnel-card">
+        <div class="fn-ctrls">
+          <button class="fn-btn play" id="fnPlay">&#9658; Play</button>
+          <button class="fn-btn" id="fnPrev">&#8249; Back</button>
+          <button class="fn-btn" id="fnNext">Next &#8250;</button>
+          <span class="fn-count" id="fnCount">1 / 7</span>
+        </div>
+        <div class="funnel" id="funnel"></div>
+      </div>
+      <div class="fn-detail" id="fnDetail"><!-- injected --></div>
+    </div>
+  </div>
+
+  <!-- ================= 3. JARGON DECODER ================= -->
+  <div class="sec">
+    <div class="sec-head"><span class="num">3</span><h2>Decode the vocabulary</h2></div>
+    <p class="sec-sub">This course requires you to keep a Personal Glossary, and these are the
+      terms it runs on. Tap any one for what it actually means, in one plain sentence, and why
+      you should care. Steal these as the starting entries of your own glossary, then let them
+      evolve.</p>
+    <div class="jar-grid" id="jarGrid"></div>
+    <div class="jpanel" id="jarPanel"></div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="ftgrid">
+      <div><b>Instructor</b><br>Dr. William N. Thomas IV<br>wthomas@american.edu</div>
+      <div><b>Office</b><br>SVB #443, by appointment<br>calendly.com/wnthomas4/30min</div>
+      <div><b>Class meets</b><br>Mon &amp; Thu, SVB #458<br>S003 9:45-11am &middot; S001 4:05-5:20pm</div>
+      <div><b>Two hard deadlines</b><br>Incomplete request: Nov 10, 2026<br>Final poster: Dec 14, 2026</div>
+    </div>
+    <div class="ft-note"><b>One thing this map undersells:</b> showing up is 2,300 of the 5,000
+      points. Attendance is 900, weekly graphic organizers 300, 4-square reflections 300, podcast
+      and magazine participation 600, and the survey plus glossary 200. Nearly half your grade is
+      earned by being present and doing the weekly work. The projects are the other 2,700.</div>
+    <p class="disclaimer">A study aid for EDU 205 students. The official syllabus and Dr. Thomas's
+      instructions govern in any case of conflict. Confirm all dates and point values against the
+      syllabus on Canvas.</p>
+  </footer>
+
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+
+/* poster sections (right column) */
+const SECTIONS = [
+  {id:"vision",   label:"School Vision &amp; Purpose"},
+  {id:"context",  label:"Community Context"},
+  {id:"model",    label:"Instructional Model"},
+  {id:"policy",   label:"Policy Considerations"},
+  {id:"equity",   label:"Equity Goals"},
+  {id:"ai",       label:"AI Policy"},
+  {id:"evidence", label:"Evidence-Based Rationale"}
+];
+
+/* the assignments that flow into the design */
+const INPUTS = [
+  {id:"editorial", label:"Purpose of School Editorial", phase:"purpose", due:"Due Sep 23", pts:"500 pts",
+   sections:["vision","model"],
+   decode:"An 800-word persuasive editorial arguing what American schools are for, built around one real U.S. public school model.",
+   action:"Pick a school model. Build a thesis with 3 to 5 points: what the model is, the history that shaped it, what it says about society today, and one inequity connected to it. APA 7, 3 to 4 pages.",
+   trap:"Summarizing school models instead of arguing. An editorial takes a position and defends it. If a reader cannot disagree with you, you have not written one.",
+   feeds:"Your reimagined school needs a stated purpose before anything else. This editorial is the first draft of your poster's vision statement.",
+   readings:[
+     {rc:"Labaree (2013).",
+      rd:"Three competing purposes of American schooling: democratic equality, social efficiency, and social mobility. The catch: they pull against each other, and every school quietly picks a winner."},
+     {rc:"Minnow (2008).",
+      rd:"Is education aimed at a goal (teleological) or is it liberation? Your answer decides what your editorial can claim school is for."},
+     {rc:"Callan (1997).",
+      rd:"Transmission versus relevance: should school pass down accumulated knowledge or start from students' lives? The curriculum question inside the purpose question."}]},
+
+  {id:"photo", label:"Contemporary Issues Photo Essay", phase:"diff", due:"Due Oct 19", pts:"500 pts",
+   sections:["context","equity"],
+   decode:"Ten photographs, each with a 300 to 400 word analytical caption, that together make one argument about a live issue in U.S. public education.",
+   action:"Choose an issue. Gather ten images, original or credited, no AI-generated images allowed. Five or more sources, including one U.S. news article from the last six months and one peer-reviewed journal article.",
+   trap:"Captions that describe the photo instead of arguing with it. Each caption is a paragraph of your argument that happens to have a picture attached.",
+   feeds:"This is where you learn to see difference operating in real schools. The issue you document here can become the equity problem your reimagined school is built to solve.",
+   readings:[
+     {rc:"Boler &amp; Zembylas (2003).",
+      rd:"A pedagogy of discomfort: real learning about difference requires sitting in the discomfort instead of smoothing it over. License to pick an issue that is actually uncomfortable."},
+     {rc:"Gadsden (2017).",
+      rd:"How different groups can receive different educations inside the same building. The claim your camera is hunting evidence for."}]},
+
+  {id:"memo", label:"Policy Analysis Memo", phase:"policy", due:"Due Nov 16", pts:"400 pts",
+   sections:["policy","ai"],
+   decode:"A 3 to 4 page memo to a real decision-maker, a superintendent or board member, analyzing one current state or federal K-12 policy: what it does, whether it works, what to do next.",
+   action:"Executive summary, background, key findings, recommendations, conclusion. Analyze intended and unintended consequences, weigh the equity implications, cite five or more credible sources.",
+   trap:"Writing a research paper in memo clothes. A memo serves a busy reader who has to decide something. If your recommendation is buried on page three, it does not exist.",
+   feeds:"Your poster requires policy considerations and a full AI policy. This memo is the rehearsal: it teaches you to write policy for someone who has to act on it.",
+   readings:[
+     {rc:"Diem &amp; Welton (2020), Ch. 2-3.",
+      rd:"What equal treatment actually means, and how schools allocate resources across groups. The analytic core of any equity-minded policy read."},
+     {rc:"Crenshaw, The Urgency of Intersectionality.",
+      rd:"A policy that looks fair on one axis can fail people who live at the intersection of several. The stress test for your recommendations."}]},
+
+  {id:"blog", label:"School Observation Blog", phase:"field", due:"Due Dec 7", pts:"600 pts",
+   sections:["model","evidence"],
+   decode:"Roughly two hours inside a real school or classroom (or an approved education film if placement is unavailable), then a 3-page first-person blog connecting what you saw to the course.",
+   action:"Take observation notes, write a one-page memo immediately after while it is fresh, then build the blog. Three or more course sources, APA 7, and full confidentiality for people and sites.",
+   trap:"Narrating events without interpreting them. A play-by-play is not a reflection. The question is what the visit taught you about schools in society.",
+   feeds:"The reality check. Every design choice on your poster gets sharper after you have watched an actual classroom run, because you have seen what your ideas are up against.",
+   readings:[
+     {rc:"Hammond, Ch. 2.",
+      rd:"Culturally responsive teaching and the brain: what belonging and rigor look like in a live classroom. A lens to observe with, not just cite."}]},
+
+  {id:"locale", label:"Locale Focus Research", phase:"thread", due:"All semester", pts:"Thread",
+   sections:["context"],
+   decode:"You pick one U.S. community and study its education story all semester: the history, the demographics, the current fights. Groups with shared locales design their school for that place.",
+   action:"Choose early, research independently, bring findings to class discussions. Your locale either becomes or shapes the community your final school is designed for.",
+   trap:"Picking a place you cannot research. Choose somewhere with accessible history, local news coverage, and school data, or every project gets harder.",
+   feeds:"This is the community context of your poster. A school designed for nowhere serves no one, and the strongest posters are unmistakably built for a real place.",
+   readings:[]},
+
+  {id:"glossary", label:"Personal Course Glossary", phase:"thread", due:"All semester", pts:"100 pts",
+   sections:["vision","evidence"],
+   decode:"A living collection of terms, starting with Meaning, Difference, Education, Schooling, Identity, Identification, and Complex versus Complicated Systems, that you define and redefine as the course changes your mind.",
+   action:"Keep it anywhere: digital file, flash cards, notebook. Bring terms to discussions. The terms are expected to evolve, and the evolution is the point.",
+   trap:"Writing definitions once and filing them away. A glossary entry that never changes means the course never touched it.",
+   feeds:"This becomes the precise language of your poster's rationale, and the vocabulary you reach for when defending your design out loud for 15 minutes.",
+   readings:[]},
+
+  {id:"weekly", label:"Graphic Organizers &amp; 4-Squares", phase:"thread", due:"Weekly", pts:"600 pts",
+   sections:["evidence"],
+   decode:"Monday opens with a graphic organizer that processes the week's reading. Thursday closes with a 4-square: claims, evidence with page numbers, key concepts, and a personal reflection.",
+   action:"Do the pre-reading so the organizer takes minutes, not the whole class. In the 4-square, cite the page or timestamp every time. Note when a reading affirms your beliefs and when it causes dissonance.",
+   trap:"Treating these as attendance paperwork. Done honestly, fifteen weeks of claims and cited evidence is a pre-written source bank for every project you will submit.",
+   feeds:"Your poster must be evidence-based. These weekly sheets are where the evidence accumulates, one reading at a time, with the page numbers already attached.",
+   readings:[]},
+
+  {id:"podcast", label:"Class Podcast &amp; Magazine", phase:"thread", due:"3 episodes + Dec release", pts:"600 pts",
+   sections:["vision","evidence"],
+   decode:"The class produces three podcast episodes across the semester and a Canva magazine at the end. Every student features at least one of their projects on an episode.",
+   action:"Pick the episode that matches your strongest project: purpose of school (Oct 1), a contemporary issue (Oct 29), or policy and society shifts (Dec 3). The magazine features everyone's work at the Dec 14 release.",
+   trap:"Hiding. The mic is coming to you either way, so choose your episode strategically instead of getting assigned the leftover slot.",
+   feeds:"Explaining your ideas out loud, unscripted, is the direct rehearsal for the 15-minute poster presentation. The students who talk all semester defend best in December.",
+   readings:[]}
+];
+
+/* the two hubs */
+const SCAN = {
+  id:"scan", kind:"hub",
+  decode:"A semester-long group project: design an innovative public school for a specific U.S. community. Built with your group across three dedicated in-class collaboration sessions on Sep 28, Oct 26, and Nov 30.",
+  why:"Every essential question in this course is secretly a design decision. What is an educated person? What should be taught? Who gets what? Your school is where your answers stop being opinions and become choices.",
+  produces:"The complete school design the final poster presents: a vision, a community, an instructional model, policies including AI, equity goals, and the evidence behind all of it.",
+  truth:"You are not asked to invent a school from nothing in December. Each project hands the design another finished piece, and the collaboration sessions exist to assemble them. Come to each one with your latest work in hand."
+};
+const CHAPTER = {
+  id:"chapter", kind:"hub",
+  decode:"A professional conference-style research poster presented by your group of 2 or 3 for 15 minutes during the final exam period, Dec 14. Same day the class magazine releases.",
+  why:"It is the final exam, worth 700 points. Every member presents, every member has a defined role, and a Group Collaboration Agreement signed early in the project holds everyone to it.",
+  produces:"A realistic, community-responsive vision for the future of public education, grounded in scholarship and defended out loud, plus the AI policy every group must write.",
+  truth:"Assembly, not invention. Look at the seven sections on the map: each one is filled by work you already turned in. If you kept your projects connected all semester, December is editing, not creating."
+};
+
+/* design funnel: 7 steps, Riverton worked example */
+const FUNNEL = [
+  {k:"Step 1", t:"Start with purpose, not a building",
+   prob:"“We want to build a good school.”",
+   status:"A wish, not a design", color:"var(--red)", bg:"#fbecea", border:"#e7b9b3",
+   scope:14,
+   changed:"The group hits Labaree's wall: democratic equality, social efficiency, and social mobility pull in different directions, and “good” dodges the choice. They stop saying good and start asking: good for what, and for whom?",
+   ask:["Which of Labaree's three purposes would your school put first when they conflict?","Whose definition of “good” is your current answer borrowing?"],
+   readings:[
+     {rc:"Labaree (2013).",
+      rd:"American schooling serves three competing purposes at once, and every reform fight is really a fight about which one wins. A school that will not choose gets chosen for."}]},
+
+  {k:"Step 2", t:"Define the educated person",
+   prob:"“A Riverton graduate can read their city critically: they know why the mill closed, who decided, and how to act on what they know.”",
+   status:"Purpose has a face", color:"var(--gate)", bg:"#fcf3e0", border:"#e8d09a",
+   scope:32,
+   changed:"The abstract mission becomes a person you could meet. Minnow's question forces the choice: is the school producing a certain kind of citizen, or freeing students to become someone no one planned? Riverton picks liberation with a floor: every graduate leaves with the tools, no one is told who to be.",
+   ask:["Describe one graduate of your school, specifically. What can they do? What do they believe about themselves?","Is your school teleological, liberatory, or honestly trying to be both?"],
+   readings:[
+     {rc:"Minnow (2008).",
+      rd:"Teleological education aims students at a predetermined goal; liberatory education frees them from one. Most real schools smuggle in a goal while claiming liberation. Naming yours is the design decision."}]},
+
+  {k:"Step 3", t:"Choose what gets taught, and why",
+   prob:"Core knowledge in the morning, Riverton in the afternoon: the river's ecology, the mill's economics, oral histories from the neighborhoods the school serves.",
+   status:"Curriculum committed", color:"var(--gate)", bg:"#fcf3e0", border:"#e8d09a",
+   scope:48,
+   changed:"Callan's dilemma stops being abstract: transmit the accumulated knowledge or start from students' lives? The group refuses the either-or and sequences both, then has to defend the mix. That defense becomes the instructional model on the poster.",
+   ask:["What must every student learn even if they find it irrelevant, and what earns a place because of who your students are?","Can you defend one concrete unit of your curriculum out loud?"],
+   readings:[
+     {rc:"Callan (1997).",
+      rd:"The transmission versus relevance debate. Alter the student to fit the curriculum, alter the curriculum to fit the student, or find the honest hybrid, and know its costs."}]},
+
+  {k:"Step 4", t:"Face difference honestly",
+   prob:"Riverton Middle's zone spans the flats and the hill: multilingual families, fourth-generation mill families, and new arrivals. The design names them instead of averaging them.",
+   status:"Students seen, not averaged", color:"var(--build)", bg:"#e2f1ee", border:"#a9d8ce",
+   scope:60,
+   changed:"The group stops designing for “the average student,” who does not exist. Gadsden's warning lands: different groups can get different educations inside one building. The design must say out loud how it prevents that, which is uncomfortable, which Boler and Zembylas say is the sign it is working.",
+   ask:["Name the actual social groups your school serves. Which ones would current schools quietly underserve?","Where does your design create discomfort, and is it the productive kind?"],
+   readings:[
+     {rc:"Boler &amp; Zembylas (2003).",
+      rd:"A pedagogy of discomfort: engaging difference honestly requires discomfort, and designing it out means designing the learning out."},
+     {rc:"Gadsden (2017).",
+      rd:"Same school, different educations. The mechanism your design has to name and interrupt."}]},
+
+  {k:"Step 5", t:"Refuse the tracking reflex",
+   prob:"No honors track and no general track: mixed-ability studios with rotating lead roles, and support that follows the student instead of sorting them.",
+   status:"Sorting interrupted", color:"var(--build)", bg:"#e2f1ee", border:"#a9d8ce",
+   scope:72,
+   changed:"Oakes forces the hardest question: when the curriculum and the student do not fit, who bends? Tracking answers by sorting kids, and the sort correlates with race and class. Riverton bends the structure instead, and now has to show the poster how rigor survives without the sort.",
+   ask:["Does your school sort students? By what, decided by whom, reversible when?","What replaces tracking as your answer to “students are different”?"],
+   readings:[
+     {rc:"Oakes (2008).",
+      rd:"Tracking as the machinery that turns student difference into educational inequality, and what it takes to actually detrack without losing rigor."}]},
+
+  {k:"Step 6", t:"Fund and govern for equity",
+   prob:"Weighted funding by need, not headcount. A community board with real power seated next to the district. Equal treatment redefined as each student getting what they need.",
+   status:"Power and money assigned", color:"var(--scan)", bg:"#e7eff8", border:"#a9c4e4",
+   scope:86,
+   changed:"Diem and Welton move the design from classroom to system: who decides, and who pays? Crenshaw's intersectionality stress-tests every rule: a policy fair on one axis can still fail the student living at the intersection of several. The group rewrites two policies after running that test.",
+   ask:["Who holds real decision-making power in your school, and who merely gets consulted?","Run one policy through the intersectionality test. Who falls through it?"],
+   readings:[
+     {rc:"Diem &amp; Welton (2020), Ch. 2-3.",
+      rd:"What equal treatment of students actually requires, and how resource allocation is where a school's stated values become real or exposed."},
+     {rc:"Crenshaw, The Urgency of Intersectionality.",
+      rd:"Single-axis thinking fails people at the intersections. The stress test every rule in your school has to pass."}]},
+
+  {k:"Step 7", t:"Culture, belonging, and the AI question",
+   prob:"“Riverton Community Middle School: a detracked, community-governed public school where multilingualism is an asset, and where AI drafts nothing a student has not first thought through.”",
+   status:"A defensible design", color:"var(--draft)", bg:"#e4f2e9", border:"#a9d6ba",
+   scope:100,
+   changed:"Hammond settles the assimilation question: belonging is not a soft extra, it is the condition for rigor, so divergent identities are designed in, not sanded off. Last, the required AI policy: where AI helps learning, where it replaces thinking, and who is protected. The design is complete and every choice can be defended out loud.",
+   ask:["Does a student have to leave part of themselves at the door of your school to succeed there?","What does your AI policy protect: the work, the thinking, or the student? Can it do all three?"],
+   readings:[
+     {rc:"Hammond, Ch. 2.",
+      rd:"Culturally responsive teaching and the brain: belonging and challenge are partners, not rivals. The research floor under your school's culture, and your best source for the AI policy's guardrails on real thinking."}]}
+];
+
+/* jargon decoder */
+const JARGON = [
+  {t:"Education vs. Schooling", p:"Education is everything that grows a person. Schooling is the institution society built to deliver some of it.",
+   why:"The course's foundational split. Most debates about “fixing education” are actually debates about schooling, and your glossary starts here."},
+  {t:"Teleological vs. Liberatory", p:"Teleological education aims students at a set goal. Liberatory education frees them to set their own.",
+   why:"Minnow's question and the spine of Unit 1. Your school design has to pick a side or defend its hybrid."},
+  {t:"Labaree's Three Purposes", p:"Democratic equality, social efficiency, and social mobility: three jobs America gives its schools that pull against each other.",
+   why:"The single most useful frame in the course. Almost every school fight you will analyze is these three purposes colliding."},
+  {t:"Self-Determination Theory", p:"People thrive when three needs are met: autonomy, competence, and relatedness.",
+   why:"One of the course's lenses, and the reason this class lets students choose discussion formats. Also a design principle for your school."},
+  {t:"Autonomous vs. Controlled Motivation", p:"Working because it matters to you, versus working for rewards or to dodge guilt.",
+   why:"SDT's payoff. Schools full of points and compliance produce controlled motivation. Ask which kind your reimagined school produces."},
+  {t:"Sociocultural Theory", p:"Learning is not a private brain event. It is a social process of becoming someone within a community.",
+   why:"Nasir and Hand's lens from week one. It connects a single classroom moment to decades of history about race, class, and policy."},
+  {t:"Neoliberalism", p:"Running public goods like markets: competition, individualism, privatization, and choice as the answer to everything.",
+   why:"The course's third lens. Charter expansion, vouchers, and teacher outsourcing all read differently once you can name the ideology underneath."},
+  {t:"Meaning", p:"What a thing signifies to a person or community, which is made, not found.",
+   why:"A required glossary term. Two students can sit in the same classroom and build entirely different meanings from it. That fact drives this course."},
+  {t:"Difference", p:"The real variation among students: race, language, class, gender, ability, and more.",
+   why:"A required glossary term, and the heart of Unit 2. The design question is never whether students differ but what schools do about it."},
+  {t:"Identity vs. Identification", p:"Identity is who you understand yourself to be. Identification is who institutions decide you are.",
+   why:"Two required glossary terms that look like twins and are not. Schools identify students constantly: gifted, ELL, at-risk. The gap between the two is where harm happens."},
+  {t:"Complex vs. Complicated", p:"Complicated systems are intricate but predictable, like an engine. Complex systems adapt and surprise, like a classroom.",
+   why:"A required glossary term. Policies that treat schools as complicated machines keep failing because schools are complex, living systems."},
+  {t:"Tracking", p:"Sorting students into different course sequences, honors, general, remedial, usually early and usually sticky.",
+   why:"Oakes's target. The sort correlates with race and class, and whether your reimagined school tracks is one of its loudest design choices."},
+  {t:"Intersectionality", p:"Crenshaw's insight that overlapping identities create experiences no single category captures.",
+   why:"A policy fair to “girls” and fair to “Black students” can still fail Black girls. The stress test for your school's every rule."},
+  {t:"Culturally Responsive Teaching", p:"Hammond's framework: using students' cultures as bridges to rigor, because belonging is the condition for learning.",
+   why:"The answer to the assimilation question in Unit 3, and the research floor under your school's culture."},
+  {t:"Assimilation vs. Pluralism", p:"Should school press students toward one norm, or make room for divergent beliefs and ways of being?",
+   why:"The last essential question of the semester. Your school's culture section answers it whether you mean to or not."},
+  {t:"Equity vs. Equality", p:"Equality gives every student the same thing. Equity gives each student what they need.",
+   why:"The difference between a school that looks fair and one that is. Your poster's equity goals live or die on whether you can tell them apart."}
+];
+
+/* ===================== LAYOUT GEOMETRY ===================== */
+const CW=1000, CH=646;
+const IN_X=24, IN_W=204, IN_H=50;
+const inCount=INPUTS.length;
+const inGap=14;
+const inBlock=inCount*IN_H+(inCount-1)*inGap;
+const inTop0=(CH-inBlock)/2;
+function inputXY(i){ const top=inTop0+i*(IN_H+inGap); return {top:top, cy:top+IN_H/2}; }
+const SCAN_C={x:486,y:323,d:178};
+const CHAP_C={x:702,y:323,d:150};
+const SEC_X=812, SEC_W=172, SEC_H=46, secGap=20;
+const secBlock=SECTIONS.length*SEC_H+(SECTIONS.length-1)*secGap;
+const secTop0=(CH-secBlock)/2;
+function secXY(i){ const top=secTop0+i*(SEC_H+secGap); return {top:top, cy:top+SEC_H/2}; }
+
+const PHASE_C={purpose:"#6b4fa1",diff:"#b07d1a",policy:"#1f7a6b",field:"#2e7d4f",thread:"#5b6472"};
+const PHASE_L={purpose:"#b6a0e0",diff:"#ecc163",policy:"#4ec7ad",field:"#63cc8b",thread:"#9aa3b0"};
+
+/* ===================== BUILD MAP ===================== */
+const canvas=document.getElementById("mapCanvas");
+const svg=document.getElementById("ribbons");
+let selId=null, lens="all";
+
+function path(x1,y1,x2,y2){
+  const dx=(x2-x1)*0.5;
+  return `M ${x1} ${y1} C ${x1+dx} ${y1}, ${x2-dx} ${y2}, ${x2} ${y2}`;
+}
+
+/* ribbons: input->design, design->poster, poster->section */
+function buildRibbons(){
+  let s="";
+  INPUTS.forEach((inp,i)=>{
+    const a=inputXY(i);
+    const tx=SCAN_C.x-SCAN_C.d/2+14;
+    const ty=SCAN_C.y+(i-(inCount-1)/2)*15;
+    s+=`<path class="ribbon" id="rib-${inp.id}" data-from="${inp.id}" data-to="scan"
+      d="${path(IN_X+IN_W,a.cy,tx,ty)}" stroke="${PHASE_L[inp.phase]}" stroke-width="3"></path>`;
+  });
+  /* design -> poster */
+  s+=`<path class="ribbon" id="rib-scanchap" data-from="scan" data-to="chapter"
+     d="${path(SCAN_C.x+SCAN_C.d/2-12,SCAN_C.y,CHAP_C.x-CHAP_C.d/2+12,CHAP_C.y)}"
+     stroke="#74acea" stroke-width="9"></path>`;
+  /* poster -> sections */
+  SECTIONS.forEach((sec,j)=>{
+    const b=secXY(j);
+    const fx=CHAP_C.x+CHAP_C.d/2-12;
+    const fy=CHAP_C.y+(j-(SECTIONS.length-1)/2)*12;
+    s+=`<path class="ribbon" id="rib-sec-${sec.id}" data-from="chapter" data-to="${sec.id}"
+      d="${path(fx,fy,SEC_X,b.cy)}" stroke="#d8b25e" stroke-width="3"></path>`;
+  });
+  svg.innerHTML=s;
+}
+
+function buildNodes(){
+  /* column captions */
+  const caps=[
+    {x:IN_X+6,y:inTop0-26,t:"Your 8 assignments"},
+    {x:SCAN_C.x-SCAN_C.d/2+8,y:SCAN_C.y-SCAN_C.d/2-26,t:"The group project"},
+    {x:CHAP_C.x-CHAP_C.d/2+8,y:CHAP_C.y-CHAP_C.d/2-26,t:"Final exam"},
+    {x:SEC_X+6,y:secTop0-26,t:"Your poster, piece by piece"}
+  ];
+  caps.forEach(c=>{
+    const d=document.createElement("div");
+    d.className="col-cap"; d.style.left=c.x+"px"; d.style.top=c.y+"px"; d.textContent=c.t;
+    canvas.appendChild(d);
+  });
+
+  /* input nodes */
+  INPUTS.forEach((inp,i)=>{
+    const a=inputXY(i);
+    const n=document.createElement("div");
+    n.className="node n-input-wrap"; n.dataset.id=inp.id;
+    n.style.left=IN_X+"px"; n.style.top=a.top+"px";
+    const ptsColor = (inp.pts==="Thread") ? "#8b93a1" : PHASE_C[inp.phase];
+    n.innerHTML=`<div class="n-input" style="border-left-color:${PHASE_C[inp.phase]}">
+      <div><div class="lab">${inp.label}</div><div class="meta">${inp.due}</div></div>
+      <span class="pts" style="background:${ptsColor}">${inp.pts.replace(" pts","")}</span>
+    </div>`;
+    wireNode(n,inp.id);
+    canvas.appendChild(n);
+  });
+
+  /* design hub */
+  const sc=document.createElement("div");
+  sc.className="node"; sc.dataset.id="scan";
+  sc.style.left=(SCAN_C.x-SCAN_C.d/2)+"px"; sc.style.top=(SCAN_C.y-SCAN_C.d/2)+"px";
+  sc.innerHTML=`<div class="n-hub hub-scan">
+    <div class="hk">ALL SEMESTER</div><div class="ht">Your Reimagined<br>School</div>
+    <div class="hs">everything flows here</div></div>`;
+  wireNode(sc,"scan"); canvas.appendChild(sc);
+
+  /* poster hub */
+  const ch=document.createElement("div");
+  ch.className="node"; ch.dataset.id="chapter";
+  ch.style.left=(CHAP_C.x-CHAP_C.d/2)+"px"; ch.style.top=(CHAP_C.y-CHAP_C.d/2)+"px";
+  ch.innerHTML=`<div class="n-hub hub-chap">
+    <div class="hk">DEC 14 &middot; 700 PTS</div><div class="ht">Conference<br>Poster</div>
+    <div class="hs">your school, presented</div></div>`;
+  wireNode(ch,"chapter"); canvas.appendChild(ch);
+
+  /* section nodes */
+  SECTIONS.forEach((sec,j)=>{
+    const b=secXY(j);
+    const n=document.createElement("div");
+    n.className="node"; n.dataset.id=sec.id;
+    n.style.left=SEC_X+"px"; n.style.top=b.top+"px";
+    n.innerHTML=`<div class="n-sec"><span class="dot"></span><span class="lab">${sec.label}</span></div>`;
+    wireNode(n,sec.id);
+    canvas.appendChild(n);
+  });
+}
+
+function wireNode(el,id){
+  el.addEventListener("mouseenter",()=>highlight(id));
+  el.addEventListener("mouseleave",()=>highlight(selId));
+  el.addEventListener("click",()=>{ selId=id; highlight(id); renderDetail(id);
+    document.querySelectorAll(".node").forEach(n=>n.classList.toggle("sel",n.dataset.id===id)); });
+}
+
+/* which ribbons + nodes light up for a given focus id */
+function relatedSet(id){
+  const ribs=new Set(), nodes=new Set();
+  if(!id) return {ribs,nodes,all:true};
+  const inp=INPUTS.find(x=>x.id===id);
+  const sec=SECTIONS.find(x=>x.id===id);
+  if(inp){
+    ribs.add("rib-"+id); ribs.add("rib-scanchap");
+    nodes.add(id); nodes.add("scan"); nodes.add("chapter");
+    inp.sections.forEach(sid=>{ ribs.add("rib-sec-"+sid); nodes.add(sid); });
+  } else if(id==="scan"){
+    INPUTS.forEach(x=>{ ribs.add("rib-"+x.id); nodes.add(x.id); });
+    ribs.add("rib-scanchap"); nodes.add("scan"); nodes.add("chapter");
+  } else if(id==="chapter"){
+    ribs.add("rib-scanchap"); nodes.add("scan"); nodes.add("chapter");
+    SECTIONS.forEach(s=>{ ribs.add("rib-sec-"+s.id); nodes.add(s.id); });
+  } else if(sec){
+    ribs.add("rib-sec-"+id); ribs.add("rib-scanchap");
+    nodes.add(id); nodes.add("chapter"); nodes.add("scan");
+    INPUTS.forEach(x=>{ if(x.sections.includes(id)){ ribs.add("rib-"+x.id); nodes.add(x.id); } });
+  }
+  return {ribs,nodes,all:false};
+}
+
+function highlight(id){
+  let focus=id;
+  if(!focus && lens==="scan") focus="scan";
+  if(!focus && lens==="chapter") focus="chapter";
+
+  const {ribs,nodes,all}=relatedSet(focus);
+  document.querySelectorAll(".ribbon").forEach(r=>{
+    if(all){ r.style.opacity=.42; r.classList.remove("lit"); r.style.strokeWidth=r.id==="rib-scanchap"?9:3; }
+    else if(ribs.has(r.id)){ r.style.opacity=1; r.classList.add("lit");
+      r.style.strokeWidth=r.id==="rib-scanchap"?11:5; }
+    else{ r.style.opacity=.08; r.classList.remove("lit");
+      r.style.strokeWidth=r.id==="rib-scanchap"?9:3; }
+  });
+  document.querySelectorAll(".node").forEach(n=>{
+    if(all) n.classList.remove("dim");
+    else n.classList.toggle("dim",!nodes.has(n.dataset.id));
+  });
+}
+
+/* ===================== DETAIL PANEL ===================== */
+const detail=document.getElementById("detail");
+const PHASE_NAME={purpose:"Unit 1 &middot; Purpose",diff:"Unit 2 &middot; Difference",
+  policy:"Unit 3 &middot; Power &amp; policy",field:"Field work",thread:"Semester-long thread"};
+
+function renderDetail(id){
+  const inp=INPUTS.find(x=>x.id===id);
+  const sec=SECTIONS.find(x=>x.id===id);
+  if(inp){
+    const topcol=PHASE_C[inp.phase];
+    detail.innerHTML=`
+      <div class="dt-top" style="background:${topcol}">
+        <div class="dt-kicker">${PHASE_NAME[inp.phase]}</div>
+        <div class="dt-title">${inp.label}</div>
+        <div class="dt-tags"><span class="dt-tag">${inp.due}</span>
+          <span class="dt-tag">${inp.pts}</span></div>
+      </div>
+      <div class="dt-body">
+        <div class="dt-block"><div class="dt-h" style="color:${topcol}">
+          <span class="ic">&#9678;</span>What it really is</div>
+          <div class="dt-p">${inp.decode}</div></div>
+        <div class="dt-block"><div class="dt-h" style="color:${topcol}">
+          <span class="ic">&#9654;</span>What you actually do</div>
+          <div class="dt-p">${inp.action}</div></div>
+        <div class="dt-block"><div class="dt-h" style="color:var(--gate)">
+          <span class="ic">&#9888;</span>The trap</div>
+          <div class="dt-p trap">${inp.trap}</div></div>
+        <div class="dt-block"><div class="dt-h" style="color:var(--scan)">
+          <span class="ic">&#10532;</span>How it builds your school</div>
+          <div class="dt-feeds">${inp.feeds}</div></div>
+        <div class="dt-block"><div class="dt-h" style="color:var(--gold)">
+          <span class="ic">&#9633;</span>Where it lands on your poster</div>
+          <div class="land">${inp.sections.map(sid=>{
+            const s=SECTIONS.find(x=>x.id===sid);
+            return `<span class="lc" data-goto="${sid}">${s.label}</span>`;}).join("")}</div></div>
+        ${inp.readings.length?`<div class="dt-block">
+          <div class="dt-h" style="color:var(--narrow)"><span class="ic">&#9776;</span>
+          Readings behind it</div>
+          ${inp.readings.map(r=>`<div class="rdg"><div class="rc">${r.rc}</div>
+            <div class="rd">${r.rd}</div></div>`).join("")}</div>`:""}
+      </div>`;
+  } else if(id==="scan"){
+    detail.innerHTML=hubHTML("The group project &middot; built all semester","Your Reimagined School","#244c80",[
+      ["&#9678;","What it really is",SCAN.decode,"dt-p"],
+      ["&#10024;","Why it is the whole point",SCAN.why,"dt-p"],
+      ["&#9654;","What it produces",SCAN.produces,"dt-p"],
+      ["&#9829;","The thing to hold onto",SCAN.truth,"dt-feeds"]
+    ]);
+  } else if(id==="chapter"){
+    detail.innerHTML=hubHTML("Final exam &middot; Dec 14 &middot; 700 pts","Conference Poster","#9a6f23",[
+      ["&#9678;","What it really is",CHAPTER.decode,"dt-p"],
+      ["&#10024;","Why it matters",CHAPTER.why,"dt-p"],
+      ["&#9654;","What it produces",CHAPTER.produces,"dt-p"],
+      ["&#9829;","The thing to hold onto",CHAPTER.truth,"dt-feeds"]
+    ]);
+  } else if(sec){
+    const builders=INPUTS.filter(x=>x.sections.includes(id));
+    detail.innerHTML=`
+      <div class="dt-top" style="background:#9a6f23">
+        <div class="dt-kicker">A section of your final poster</div>
+        <div class="dt-title">${sec.label}</div>
+      </div>
+      <div class="dt-body">
+        <div class="dt-block"><div class="dt-h" style="color:var(--gold)">
+          <span class="ic">&#9633;</span>This part of the poster is built by</div>
+          <div class="dt-p">These assignments are not busywork. Each one becomes raw material for
+          this exact section. Do them well during the semester and this section is mostly done
+          before December.</div></div>
+        ${builders.map(b=>`<div class="rdg" style="cursor:pointer" data-goto="${b.id}">
+          <div class="rc">${b.label}</div>
+          <div class="rd">${b.decode}</div></div>`).join("")}
+      </div>`;
+  }
+  /* wire cross-links */
+  detail.querySelectorAll("[data-goto]").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const gid=el.dataset.goto; selId=gid; highlight(gid); renderDetail(gid);
+      document.querySelectorAll(".node").forEach(n=>n.classList.toggle("sel",n.dataset.id===gid));
+      document.getElementById("mapScroll").scrollIntoView({behavior:"smooth",block:"center"});
+    });
+  });
+}
+
+function hubHTML(kicker,title,bg,blocks){
+  return `<div class="dt-top" style="background:${bg}">
+      <div class="dt-kicker">${kicker}</div>
+      <div class="dt-title">${title}</div></div>
+    <div class="dt-body">
+      ${blocks.map(b=>`<div class="dt-block">
+        <div class="dt-h" style="color:${bg}"><span class="ic">${b[0]}</span>${b[1]}</div>
+        <div class="${b[3]}">${b[2]}</div></div>`).join("")}
+    </div>`;
+}
+
+/* ===================== DESIGN FUNNEL ===================== */
+const funnelEl=document.getElementById("funnel");
+const fnDetail=document.getElementById("fnDetail");
+let fnStep=0, fnTimer=null;
+const FN_COLORS=["var(--red)","var(--gate)","var(--gate)","var(--build)","var(--build)","var(--scan)","var(--draft)"];
+
+function buildFunnel(){
+  funnelEl.innerHTML=FUNNEL.map((s,i)=>{
+    const w=96-i*8;
+    return `<div class="fband" data-step="${i}" style="width:${w}%;background:${FN_COLORS[i]}">
+      <span class="fnum">${i+1}</span><span class="ftxt">${s.t}</span></div>`;
+  }).join("");
+  funnelEl.querySelectorAll(".fband").forEach(b=>{
+    b.addEventListener("click",()=>{ stopPlay(); fnStep=+b.dataset.step; renderFunnel(); });
+  });
+}
+
+function renderFunnel(){
+  funnelEl.querySelectorAll(".fband").forEach((b,i)=>b.classList.toggle("active",i===fnStep));
+  const s=FUNNEL[fnStep];
+  document.getElementById("fnCount").textContent=(fnStep+1)+" / 7";
+  fnDetail.innerHTML=`
+    <div class="fn-stage-k">${s.k} of 7</div>
+    <div class="fn-stage-t">${s.t}</div>
+    <div class="probcard" style="background:${s.bg};border-color:${s.border}">
+      <div class="pstatus" style="color:${s.color}">
+        <span>&#9679;</span>${s.status}</div>
+      <div class="ptext">${s.prob}</div>
+    </div>
+    <div class="scopemeter">
+      <div class="sm-lab"><span>A wish</span><span>A defensible design</span></div>
+      <div class="sm-track"><div class="sm-fill" style="width:${s.scope}%;background:${s.color}"></div></div>
+    </div>
+    <div class="fn-changed"><b>What just changed:</b> ${s.changed}</div>
+    <div class="fn-ask"><div class="fa-h">Ask your group</div>
+      <ul>${s.ask.map(q=>`<li>${q}</li>`).join("")}</ul></div>
+    <div class="fn-rdg-h">The readings that teach this step</div>
+    ${s.readings.map(r=>`<div class="rdg"><div class="rc">${r.rc}</div>
+      <div class="rd">${r.rd}</div></div>`).join("")}`;
+}
+function stopPlay(){ if(fnTimer){clearInterval(fnTimer);fnTimer=null;}
+  document.getElementById("fnPlay").innerHTML="&#9658; Play"; }
+document.getElementById("fnPlay").addEventListener("click",()=>{
+  if(fnTimer){ stopPlay(); return; }
+  document.getElementById("fnPlay").innerHTML="&#10073;&#10073; Pause";
+  if(fnStep>=6) fnStep=-1;
+  fnTimer=setInterval(()=>{
+    fnStep++; renderFunnel();
+    if(fnStep>=6) stopPlay();
+  },2600);
+  fnStep++; renderFunnel();
+});
+document.getElementById("fnPrev").addEventListener("click",()=>{
+  stopPlay(); fnStep=(fnStep+6)%7; renderFunnel(); });
+document.getElementById("fnNext").addEventListener("click",()=>{
+  stopPlay(); fnStep=(fnStep+1)%7; renderFunnel(); });
+
+/* ===================== JARGON ===================== */
+const jarGrid=document.getElementById("jarGrid");
+const jarPanel=document.getElementById("jarPanel");
+let jarSel=0;
+function buildJargon(){
+  jarGrid.innerHTML=JARGON.map((j,i)=>
+    `<button class="jchip" data-j="${i}">${j.t}</button>`).join("");
+  jarGrid.querySelectorAll(".jchip").forEach(c=>{
+    c.addEventListener("click",()=>{ jarSel=+c.dataset.j; renderJargon(); });
+  });
+}
+function renderJargon(){
+  jarGrid.querySelectorAll(".jchip").forEach((c,i)=>c.classList.toggle("on",i===jarSel));
+  const j=JARGON[jarSel];
+  jarPanel.innerHTML=`<div class="jp-term">${j.t}</div>
+    <div class="jp-body"><div class="jp-plain">${j.p}</div>
+    <div class="jp-why"><b>Why you care.</b> ${j.why}</div></div>`;
+}
+
+/* ===================== RESPONSIVE MAP SCALE ===================== */
+function fitMap(){
+  const scroll=document.getElementById("mapScroll");
+  const avail=scroll.clientWidth;
+  const scale=Math.min(1, avail/CW);
+  canvas.style.transform="translateX(-50%) scale("+scale+")";
+  scroll.style.height=(CH*scale)+"px";
+}
+
+/* ===================== LENS BUTTONS ===================== */
+document.querySelectorAll(".lensbtn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    lens=b.dataset.lens;
+    document.querySelectorAll(".lensbtn").forEach(x=>x.classList.toggle("on",x===b));
+    highlight(selId);
+  });
+});
+
+/* ===================== INIT ===================== */
+buildRibbons();
+buildNodes();
+buildFunnel();
+buildJargon();
+renderFunnel();
+renderJargon();
+renderDetail("scan");
+selId="scan";
+document.querySelectorAll(".node").forEach(n=>n.classList.toggle("sel",n.dataset.id==="scan"));
+highlight("scan");
+fitMap();
+window.addEventListener("resize",fitMap);
+</script>
+</body>
+</html>
